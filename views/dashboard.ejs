@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Password Manager - Dashboard</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script>
+        function generate() {
+            var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var symbols = "!*.-_$/&%?,;:+";
+            const pwd_field = document.querySelector("#pwd");
+            pwd_field.value = ""
+
+            for (var i = 0; i < 10; i++) {
+                var char;
+                if (Math.random() < 0.9) {
+                    char = alphabet[Math.floor(Math.random()*alphabet.length)];
+                    if (Math.random() < 0.5)
+                      char = char.toLowerCase();
+                } else char = symbols[Math.floor(Math.random()*symbols.length)];
+                pwd_field.value = pwd_field.value + char;
+            }
+
+            console.log(pwd_field.value);
+        }
+    </script>
+  </head>
+  <body>
+    <h1>Crea una nuova password!</h1>
+    <form action="/add-password" method="POST">
+        Account: <input type="text"/>
+        Password: <input type="password" id="pwd"/>
+        <input type="button" onclick="generate();" value="Genera" />
+        <input type="submit" value="Crea" />
+    </form>
+  </body>
+</html>
