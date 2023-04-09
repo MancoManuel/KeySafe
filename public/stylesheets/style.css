@@ -5,26 +5,17 @@
 }
 
 body {
-  display: flex;
+  display: block;
   background: linear-gradient(90deg, #0030FF 0%, #10AAFF 100%);
   color: black;
   text-align: center;
-}
-
-#centerLayout {
-  margin: auto;
-  margin-top: 5%;
-  background-color: white;
-  border-radius: 30px;
-  padding: 40px 100px 40px 100px;
-  box-shadow: 5px 5px 30px #000;
 }
 
 h1 {
   font-family: "Bungee";
   font-size: 32px;
   color: #0030FF;
-  margin-bottom: 30px;
+  user-select: none;
 }
 
 .text-field {
@@ -35,7 +26,7 @@ h1 {
   width: 70%;
   height: 35px;
   padding: 2px 15px 2px 15px;
-  margin-top: 10px;
+  margin-top: 40px;
   background-color: transparent;
   color: black;
   outline: none;
@@ -50,7 +41,6 @@ h1 {
   padding: 2px 15px 2px 15px;
   margin-top: 10px;
   background-color: transparent;
-  text-align: justify;
 }
 
 .pwd-field {
@@ -69,6 +59,7 @@ h1 {
   font-size: 1.4rem;
   transition: 0.15s ease-out;
   transform: translate(-70%, 25%);
+  cursor: pointer;
 }
 
 #eyeBtn:hover::before {
@@ -89,6 +80,7 @@ input[type="submit"], input[type="button"] {
   color: white;
   transition: background-position 0.1s ease-in;
   padding: 0;
+  cursor: pointer;
 }
 
 input[type="button"]:hover, input[type="submit"]:hover {
@@ -122,7 +114,7 @@ input[type="button"]:active, input[type="submit"]:active {
   user-select: none;
 }
 
-#labeledCb > #labeledCb input, #labeledCb label {
+#labeledCb > input, #labeledCb label {
   cursor: pointer;
 }
 
@@ -146,4 +138,76 @@ label[for="lengthSpinner"] {
 
 #generatePwdBtn {
   margin-top: 20px;
+}
+
+.header {
+  position: relative;
+  margin-top: 50px;
+  background-color: white;
+  border-radius: 30px;
+  padding: 40px 80px;
+  width: 600px;
+  align-items: center;
+  justify-content: center;
+  display: inline-flex;
+  box-shadow: 0 5px 20px #000;
+  z-index: 1;
+}
+
+.bi.bi-chevron-up {
+  position: absolute;
+  font-size: 1.5rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+  transform: translateX(330px) rotate(180deg);
+  transition: transform 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+.bi.bi-chevron-up:before {
+  transform: translateY(30%);
+}
+
+.bi.bi-chevron-up:hover {
+  background-color: lightgray;
+  transition: background-color 0.3s;
+  transition: transform 0.4s ease-in-out;
+}
+
+.bi.bi-chevron-up:active {
+  transition: 0s;
+  background-color: gray;
+}
+
+.bi.bi-chevron-up.open {
+  transition: transform 0.4s ease-in-out;
+  transform: translateX(330px) rotate(0deg);
+}
+
+.menu {
+  display: none;
+  transition: display 0.5s;
+  background-color: white;
+  width: 600px;
+  margin: auto;
+  border-radius: 0 0 30px 30px;
+  padding: 40px 80px;
+  transform: translateY(-40px);
+  box-shadow: 5px 5px 30px #000;
+}
+
+.show {
+  display: block;
+  transition: display 0.5s;
+}
+
+.storedPwd {
+  margin-top: 30px;
+  line-height: 1.5;
+}
+
+h2 {
+  font-size: 20px;
 }

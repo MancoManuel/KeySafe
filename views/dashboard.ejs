@@ -87,16 +87,42 @@
 				eyeBtn.setAttribute("class", "bi bi-eye-fill");
 			}
 		}
+
+		function load() {
+			var success = "<%= success %>"
+			var label = document.querySelector("#logLabel");
+			if (success == 1) {
+				label.innerHTML = "Password creata!";
+				label.setAttribute("style", "color: green;");
+			} else if (success == -1) {
+				label.innerHTML = "Password non creata!";
+				label.setAttribute("style", "color: red;");
+			}
+
+			showHidePasswordMaker();
+		}
+
+		function showHidePasswordMaker() {
+			document.getElementById("pwd-maker-form").classList.toggle("show");
+			document.getElementById("pm-header-arrow").classList.toggle("open");
+		}
+
+		function showHidePasswords() {
+			document.getElementById("stored-pwd-list").classList.toggle("show");
+			document.getElementById("sp-header-arrow").classList.toggle("open");
+		}
 	</script>
 </head>
-
-<body>
-	<div id="centerLayout">
-		<h1>Crea una nuova password</h1>
-		<form action="/add-password" method="POST" name="form">
-			<input type="text" id="account" class="text-field" placeholder="Account" required />
+<body onload="load()">
+	<div>
+		<div class="header">
+			<h1>Crea una nuova password</h1>
+			<i id="pm-header-arrow" class="bi bi-chevron-up" onclick="showHidePasswordMaker()"></i>
+		</div>
+		<form id="pwd-maker-form" class="menu" action="/dashboard" method="POST" name="form">
+			<input type="text" id="account" class="text-field" name="account" placeholder="Account" required />
 			<div class="pwd-input-container">
-				<input type="password" id="pwd" class="pwd-field" placeholder="Password" required />
+				<input type="password" id="pwd" class="pwd-field" name="password" placeholder="Password" required />
 				<i id="eyeBtn" class="bi bi-eye-fill" onclick="togglePwdVisibility()"></i>
 			</div>
 			<input type="submit" id="submitBtn" value="Crea" />
@@ -129,6 +155,20 @@
 			</div>
 			<input type="button" id="generatePwdBtn" onclick="generate();" value="Genera" />
 		</form>
+	</div>
+	<div>
+		<div class="header">
+			<h1>Password salvate</h1>
+			<i id="sp-header-arrow" class="bi bi-chevron-up" onclick="showHidePasswords()"></i>
+		</div>
+		<div id="stored-pwd-list" class="menu">
+			<% passwords.forEach(pwd => { %>
+				<div id="storedPwd" class="storedPwd">
+					<h2>Account: <%=pwd.account%></h2>
+					<h2>Password: <%=pwd.password%> <i class="bi bi-clipboard"></i></a></h2>
+				</div>
+			<%})%>
+		</div>
 	</div>
 </body>
 </html>
