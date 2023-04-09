@@ -1,8 +1,149 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+* {
+  margin: 0;
+  font-family: "Russo One";
+  font-size: 18px;
 }
 
-a {
-  color: #00B7FF;
+body {
+  display: flex;
+  background: linear-gradient(90deg, #0030FF 0%, #10AAFF 100%);
+  color: black;
+  text-align: center;
+}
+
+#centerLayout {
+  margin: auto;
+  margin-top: 5%;
+  background-color: white;
+  border-radius: 30px;
+  padding: 40px 100px 40px 100px;
+  box-shadow: 5px 5px 30px #000;
+}
+
+h1 {
+  font-family: "Bungee";
+  font-size: 32px;
+  color: #0030FF;
+  margin-bottom: 30px;
+}
+
+.text-field {
+  margin: auto;
+  appearance: none;
+  border: 3px solid #0030FF;
+  border-radius: 15px;
+  width: 70%;
+  height: 35px;
+  padding: 2px 15px 2px 15px;
+  margin-top: 10px;
+  background-color: transparent;
+  color: black;
+  outline: none;
+}
+
+.pwd-input-container {
+  margin: auto;
+  border: 3px solid #0030FF;
+  border-radius: 15px;
+  width: 70%;
+  height: 35px;
+  padding: 2px 15px 2px 15px;
+  margin-top: 10px;
+  background-color: transparent;
+  text-align: justify;
+}
+
+.pwd-field {
+  appearance: none;
+  border: none;
+  padding: 0;
+  outline: none;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+}
+
+#eyeBtn::before {
+  position: absolute;
+  color: gray;
+  font-size: 1.4rem;
+  transition: 0.15s ease-out;
+  transform: translate(-70%, 25%);
+}
+
+#eyeBtn:hover::before {
+  color: #222;
+  transition: 0.15s ease-out;
+}
+
+input[type="submit"], input[type="button"] {
+  display: block;
+  margin: auto;
+  border-radius: 20px;
+  width: 55%;
+  height: 45px;
+  background: linear-gradient(90deg, #0030FF 0%, #10AAFF 50%, #0030FF 100%);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  border: none;
+  color: white;
+  transition: background-position 0.1s ease-in;
+  padding: 0;
+}
+
+input[type="button"]:hover, input[type="submit"]:hover {
+  transition: background-position 0.1s ease-in;
+  background-position: 100% 50%;
+}
+
+input[type="button"]:active, input[type="submit"]:active {
+  box-shadow: 0px 0px 30px #00A inset;
+}
+
+#submitBtn {
+  margin-top: 20px;
+}
+
+#logLabel {
+  display: block;
+  height: 20px;
+  margin: 30px 0;
+  font-size: 16px;
+}
+
+#pwdOptions {
+  margin: auto;
+}
+
+#labeledCb {
+  text-align: center;
+  height: 25px;
+  padding: 0 20px;
+  user-select: none;
+}
+
+#labeledCb > #labeledCb input, #labeledCb label {
+  cursor: pointer;
+}
+
+#labeledSpinner {
+  display: block;
+  margin: 30px 0;
+}
+
+label[for="lengthSpinner"] {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+#lengthSpinner {
+  outline: none;
+  border: 3px solid #0030FF;
+  border-radius: 10px;
+  padding: 5px;
+  text-align: center;
+}
+
+#generatePwdBtn {
+  margin-top: 20px;
 }
