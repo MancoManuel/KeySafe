@@ -103,7 +103,18 @@
 		}
 
 		function showHidePasswordMaker() {
-			document.getElementById("pwd-maker-form").classList.toggle("show");
+			var menu = document.getElementById("pwd-maker-form");
+			menu.classList.toggle("show");
+
+			var listener = () => {
+				menu.setAttribute("style", "position: absolute; visibility: hidden;");
+				menu.removeEventListener("transitionend", listener);
+			};
+
+			if (!menu.classList.contains("show"))
+				menu.addEventListener("transitionend", listener);
+			else menu.setAttribute("style", "position: relative; visibility: visible;");
+
 			document.getElementById("pm-header-arrow").classList.toggle("open");
 		}
 

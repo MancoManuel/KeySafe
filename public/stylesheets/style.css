@@ -187,20 +187,23 @@ label[for="lengthSpinner"] {
 }
 
 .menu {
-  display: none;
-  transition: display 0.5s;
   background-color: white;
   width: 600px;
   margin: auto;
   border-radius: 0 0 30px 30px;
   padding: 40px 80px;
-  transform: translateY(-40px);
-  box-shadow: 5px 5px 30px #000;
+  transform: translateY(-90px) scaleY(0);
+  transform-origin: 0 0;
+  transition: 0.5s;
+  transition-delay: position 0.5s;
+  box-shadow: none;
 }
 
 .show {
   display: block;
-  transition: display 0.5s;
+  transform: translateY(-40px) scaleY(1);
+  box-shadow: 5px 5px 30px #000;
+  transition: 0.5s;
 }
 
 .storedPwd {
