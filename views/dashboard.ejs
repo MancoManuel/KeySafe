@@ -4,8 +4,8 @@
 <head>
 	<title>Password Manager - Dashboard</title>
 	<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Bungee">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Russo+One">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+	<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Russo+One">
+	<link rel='stylesheet' href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 	<link rel='stylesheet' href='/stylesheets/style.css' />
 	<script>
 		function generate() {
@@ -99,38 +99,82 @@
 				label.setAttribute("style", "color: red;");
 			}
 
-			showHidePasswordMaker();
+			/*showHideMakerForm();
+			hideMenuShape(findMenu("stored-pwd-menu"));*/
+
+			// DEBUG
+			hideMenuShape(findMenu("pwd-maker-menu"));
+			showHidePasswords();
 		}
 
-		function showHidePasswordMaker() {
-			var menu = document.getElementById("pwd-maker-form");
-			menu.classList.toggle("show");
-
-			var listener = () => {
-				menu.setAttribute("style", "position: absolute; visibility: hidden;");
-				menu.removeEventListener("transitionend", listener);
-			};
-
-			if (!menu.classList.contains("show"))
-				menu.addEventListener("transitionend", listener);
-			else menu.setAttribute("style", "position: relative; visibility: visible;");
-
-			document.getElementById("pm-header-arrow").classList.toggle("open");
+		function showHideMakerForm() {
+			showHideMenu(findMenu("pwd-maker-menu"));
 		}
 
 		function showHidePasswords() {
-			document.getElementById("stored-pwd-list").classList.toggle("show");
-			document.getElementById("sp-header-arrow").classList.toggle("open");
+			if ("<%=passwords.length%>" > 0)
+				showHideMenu(findMenu("stored-pwd-menu"));
+		}
+
+		function showHideMenu(menu) {
+			var container = menu.parentNode;
+			menu.classList.toggle("show");
+				
+			if (!menu.classList.contains("show")) {
+				var listener = () => {
+					hideMenuShape(menu);
+					menu.removeEventListener("transitionend", listener);
+				};
+				menu.addEventListener("transitionend", listener);
+			} else showMenuShape(menu);
+
+			var arrow = findArrow(container);
+			arrow.classList.toggle("open");
+		}
+
+		function hideMenuShape(menu) {
+			menu.setAttribute("style", "position: absolute; visibility: hidden;");
+		}
+
+		function showMenuShape(menu) {
+			menu.setAttribute("style", "position: relative; visibility: visible;");
+		}
+
+		function editPassword(index) {
+			document.getElementById("single-pwd-text" + index).classList.toggle("removed");
+			document.getElementById("single-pwd-input" + index).classList.toggle("removed");
+		}
+
+		function submitChange(index) {
+			var actionSpec = document.getElementById("actionSpec" + index);
+			actionSpec.setAttribute("value", "edit");
+			document.getElementById("single-pwd-form" + index).submit();
+		}
+
+		function submitDeletion(index) {
+			var actionSpec = document.getElementById("actionSpec" + index);
+			actionSpec.setAttribute("value", "delete");
+			document.getElementById("single-pwd-form" + index).submit();
+		}
+
+		function findMenu(containerId) {
+			var container = document.getElementById(containerId);
+			return container.getElementsByClassName("menu")[0];
+		}
+
+		function findArrow(container) {
+			return container.getElementsByClassName("bi bi-chevron-up")[0];
 		}
 	</script>
 </head>
 <body onload="load()">
-	<div>
+	<div id="pwd-maker-menu">
 		<div class="header">
 			<h1>Crea una nuova password</h1>
-			<i id="pm-header-arrow" class="bi bi-chevron-up" onclick="showHidePasswordMaker()"></i>
+			<i class="bi bi-chevron-up" onclick="showHideMakerForm()"></i>
 		</div>
-		<form id="pwd-maker-form" class="menu" action="/dashboard" method="POST" name="form">
+		<form class="menu" action="/dashboard" method="POST" name="form">
+			<input type="hidden" name="action" value="add" />
 			<input type="text" id="account" class="text-field" name="account" placeholder="Account" required />
 			<div class="pwd-input-container">
 				<input type="password" id="pwd" class="pwd-field" name="password" placeholder="Password" required />
@@ -167,18 +211,37 @@
 			<input type="button" id="generatePwdBtn" onclick="generate();" value="Genera" />
 		</form>
 	</div>
-	<div>
+	<div id="stored-pwd-menu">
 		<div class="header">
 			<h1>Password salvate</h1>
 			<i id="sp-header-arrow" class="bi bi-chevron-up" onclick="showHidePasswords()"></i>
 		</div>
-		<div id="stored-pwd-list" class="menu">
-			<% passwords.forEach(pwd => { %>
-				<div id="storedPwd" class="storedPwd">
-					<h2>Account: <%=pwd.account%></h2>
-					<h2>Password: <%=pwd.password%> <i class="bi bi-clipboard"></i></a></h2>
-				</div>
-			<%})%>
+		<div class="menu">
+			<%
+				for (let i = 0; i < passwords.length; i++) {
+					var pwd = passwords[i];%>
+					<form class="storedPwd" id="single-pwd-form<%=i%>" action="/dashboard" method="POST">
+						<input id="actionSpec<%=i%>" type="hidden" name="action" />
+						<input type="hidden" name="index" value="<%=i%>" />
+						<h2>Account: <%=pwd.account%></h2>
+						<h2 id="single-pwd-text<%=i%>">
+							Password: <%=pwd.password%>
+							<div class="actions">
+								<i class="bi bi-clipboard sp-action"></i>
+								<i class="bi bi-pencil sp-action" onclick="editPassword('<%=i%>')"></i>
+								<i class="bi bi-trash sp-action" onclick="submitDeletion('<%=i%>')"></i>
+							</div>
+						</h2>
+						<div id="single-pwd-input<%=i%>" class="removed">
+							Password: <input type="text" name="password" class="text-field reduced" value="<%=pwd.password%>" placeholder="Nuova password" required />
+							<div class="actions">
+								<i class="bi bi-check2 sp-action" onclick="submitChange('<%=i%>')"></i>
+								<i class="bi bi-x sp-action" onclick="editPassword('<%=i%>')"></i>
+							</div>
+						</div>
+					</form>
+				<%}
+			%>
 		</div>
 	</div>
 </body>

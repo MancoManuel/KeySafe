@@ -2,6 +2,7 @@
   margin: 0;
   font-family: "Russo One";
   font-size: 18px;
+  padding: 0;
 }
 
 body {
@@ -100,7 +101,7 @@ input[type="button"]:active, input[type="submit"]:active {
   display: block;
   height: 20px;
   margin: 30px 0;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 #pwdOptions {
@@ -141,8 +142,8 @@ label[for="lengthSpinner"] {
 }
 
 .header {
+  margin-top: 30px;
   position: relative;
-  margin-top: 50px;
   background-color: white;
   border-radius: 30px;
   padding: 40px 80px;
@@ -160,9 +161,8 @@ label[for="lengthSpinner"] {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.4s ease-in-out;;
   transform: translateX(330px) rotate(180deg);
-  transition: transform 0.4s ease-in-out;
   cursor: pointer;
 }
 
@@ -190,6 +190,7 @@ label[for="lengthSpinner"] {
   background-color: white;
   width: 600px;
   margin: auto;
+  margin-bottom: -40px;
   border-radius: 0 0 30px 30px;
   padding: 40px 80px;
   transform: translateY(-90px) scaleY(0);
@@ -213,4 +214,69 @@ label[for="lengthSpinner"] {
 
 h2 {
   font-size: 20px;
+  align-content: center;
+}
+
+.sp-action {
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.sp-action::before {
+  position: relative;
+  z-index: 1;
+  margin-left: 2px;
+}
+
+.sp-action::after {
+  position: absolute;
+  content: '';
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  transform: translateX(-24px);
+}
+
+.sp-action:hover::after {
+  background-color: lightgray;
+}
+
+.sp-action:active::after {
+  background-color: gray;
+}
+
+.bi.bi-check2::before {
+  font-size: 1.3rem;
+  color: green;
+  left: -5px;
+}
+
+.bi.bi-check2::after {
+  transform: translate(-31px, 1px);
+}
+
+.bi.bi-x::before {
+  font-size: 1.4rem;
+  color: red;
+  left: -10px;
+}
+
+.bi.bi-x::after {
+  transform: translate(-38px, 1px);
+}
+
+.text-field.reduced {
+  width: 25%;
+  height: 25px;
+  margin: auto;
+  padding-left: 10px;
+}
+
+.removed {
+  display: none;
+}
+
+.actions {
+  display: inline;
+  margin-left: 5px;
 }
