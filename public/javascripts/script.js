@@ -1,3 +1,5 @@
+var passwords;
+
 function generate() {
     var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     var allSymbols = "!*.-_$/&%?,;:+";
@@ -78,7 +80,7 @@ function togglePwdVisibility() {
     }
 }
 
-function load() {
+function load(passwordNum) {
     var success = "<%= success %>"
     var label = document.querySelector("#logLabel");
     if (success == 1) {
@@ -88,6 +90,8 @@ function load() {
         label.innerHTML = "Password non creata!";
         label.setAttribute("style", "color: red;");
     }
+
+    passwords = passwordNum; 
 
     /*showHideMakerForm();
     hideMenuShape(findMenu("stored-pwd-menu"));*/
@@ -102,7 +106,7 @@ function showHideMakerForm() {
 }
 
 function showHidePasswords() {
-    if ("<%=passwords.length%>" > 0)
+    if (passwords > 0)
         showHideMenu(findMenu("stored-pwd-menu"));
 }
 

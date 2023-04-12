@@ -14,7 +14,7 @@ let passwords = [
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  var response = {"passwords": passwords, "success": 0};
+  var response = {passwords: passwords, success: 0};
   res.render('dashboard', response);
 });
 
