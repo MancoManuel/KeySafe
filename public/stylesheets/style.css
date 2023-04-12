@@ -6,10 +6,14 @@
 }
 
 body {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(90deg, #0030FF 0%, #10AAFF 100%);
   color: black;
   text-align: center;
+  height: 100vh;
 }
 
 h1 {
@@ -208,8 +212,13 @@ label[for="lengthSpinner"] {
 }
 
 .storedPwd {
+  margin: auto;
   margin-top: 30px;
   line-height: 1.5;
+  width: max-content;
+  align-items: center;
+  justify-content: right;
+  display: flex;
 }
 
 h2 {
@@ -234,7 +243,7 @@ h2 {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  transform: translateX(-24px);
+  transform: translate(-24px, -1px);
 }
 
 .sp-action:hover::after {
@@ -252,7 +261,7 @@ h2 {
 }
 
 .bi.bi-check2::after {
-  transform: translate(-31px, 1px);
+  transform: translate(-31px, -4px);
 }
 
 .bi.bi-x::before {
@@ -262,21 +271,26 @@ h2 {
 }
 
 .bi.bi-x::after {
-  transform: translate(-38px, 1px);
+  transform: translate(-38px, -3px);
 }
 
 .text-field.reduced {
-  width: 25%;
+  position: relative;
+  width: 60%;
   height: 25px;
   margin: auto;
-  padding-left: 10px;
+  text-align: center;
+}
+
+.actions {
+  position: absolute;
+  right: 130px;
+}
+
+.editing {
+  position: relative;
 }
 
 .removed {
   display: none;
-}
-
-.actions {
-  display: inline;
-  margin-left: 5px;
 }

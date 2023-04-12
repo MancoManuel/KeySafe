@@ -6,166 +6,8 @@
 	<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Bungee">
 	<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Russo+One">
 	<link rel='stylesheet' href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
-	<link rel='stylesheet' href='/stylesheets/style.css' />
-	<script>
-		function generate() {
-			var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-			var allSymbols = "!*.-_$/&%?,;:+";
-			const length = document.querySelector("#lengthSpinner").value;
-
-			const pwd_field = document.querySelector("#pwd");
-			const options = [
-				document.querySelector("#uppercaseCb").checked,
-				document.querySelector("#lowercaseCb").checked,
-				document.querySelector("#numbersCb").checked,
-				document.querySelector("#symbolsCb").checked
-			];
-			
-			const probabilities = [0.45, 0.45, 0.05, 0.05];
-			var sum = 0, remaining = 0;
-			for (let i = 0; i < probabilities.length; i++) {
-				if (!options[i])
-					probabilities[i] = 0;
-				else {
-					sum += probabilities[i];
-					remaining++;
-				}
-			}
-
-			const logLabel = document.querySelector("#logLabel");
-			logLabel.innerHTML = "";
-			if (remaining == 0) {
-				logLabel.innerHTML = "Seleziona almeno un'opzione!";
-				logLabel.style = "color: red;";
-				return;
-			}
-
-			var fraction = (1-sum)/remaining;
-			var increaseAmts = [];
-			for (let i = 0; i < probabilities.length; i++) {
-				var incAmt;
-				if (options[i]) {
-					probabilities[i] += fraction;
-					incAmt = (1-probabilities[i])/(length-1);
-				} else incAmt = 0;
-				increaseAmts.push(incAmt);
-			}
-
-			pwd_field.value = "";
-			for (var i = 0; i < length; i++) {
-				var index = -1;
-				for (let j = 0; j < probabilities.length; j++)
-					if (options[j] && (index == -1 || probabilities[j] > probabilities[index]))
-						index = j;
-
-				var char;
-				if (index <= 1) {
-					char = alphabet[Math.floor(Math.random() * alphabet.length)];
-					if (index == 1)
-						char = char.toLowerCase();
-				} else if (index == 2)
-					char = Math.floor(Math.random() * 10);
-				else char = allSymbols[Math.floor(Math.random() * allSymbols.length)];
-				
-				probabilities[index] = 0;
-				for (let j = 0; j < probabilities.length; j++)
-					if (j != index)
-						probabilities[j] += increaseAmts[j];
-				pwd_field.value += char;
-			}
-		}
-
-		function togglePwdVisibility() {
-			const pwdField = document.querySelector("#pwd");
-			const eyeBtn = document.querySelector("#eyeBtn");
-
-			if (pwdField.getAttribute("type") == "password") {
-				pwdField.setAttribute("type", "text");
-				eyeBtn.setAttribute("class", "bi bi-eye-slash-fill");
-			} else {
-				pwdField.setAttribute("type", "password");
-				eyeBtn.setAttribute("class", "bi bi-eye-fill");
-			}
-		}
-
-		function load() {
-			var success = "<%= success %>"
-			var label = document.querySelector("#logLabel");
-			if (success == 1) {
-				label.innerHTML = "Password creata!";
-				label.setAttribute("style", "color: green;");
-			} else if (success == -1) {
-				label.innerHTML = "Password non creata!";
-				label.setAttribute("style", "color: red;");
-			}
-
-			/*showHideMakerForm();
-			hideMenuShape(findMenu("stored-pwd-menu"));*/
-
-			// DEBUG
-			hideMenuShape(findMenu("pwd-maker-menu"));
-			showHidePasswords();
-		}
-
-		function showHideMakerForm() {
-			showHideMenu(findMenu("pwd-maker-menu"));
-		}
-
-		function showHidePasswords() {
-			if ("<%=passwords.length%>" > 0)
-				showHideMenu(findMenu("stored-pwd-menu"));
-		}
-
-		function showHideMenu(menu) {
-			var container = menu.parentNode;
-			menu.classList.toggle("show");
-				
-			if (!menu.classList.contains("show")) {
-				var listener = () => {
-					hideMenuShape(menu);
-					menu.removeEventListener("transitionend", listener);
-				};
-				menu.addEventListener("transitionend", listener);
-			} else showMenuShape(menu);
-
-			var arrow = findArrow(container);
-			arrow.classList.toggle("open");
-		}
-
-		function hideMenuShape(menu) {
-			menu.setAttribute("style", "position: absolute; visibility: hidden;");
-		}
-
-		function showMenuShape(menu) {
-			menu.setAttribute("style", "position: relative; visibility: visible;");
-		}
-
-		function editPassword(index) {
-			document.getElementById("single-pwd-text" + index).classList.toggle("removed");
-			document.getElementById("single-pwd-input" + index).classList.toggle("removed");
-		}
-
-		function submitChange(index) {
-			var actionSpec = document.getElementById("actionSpec" + index);
-			actionSpec.setAttribute("value", "edit");
-			document.getElementById("single-pwd-form" + index).submit();
-		}
-
-		function submitDeletion(index) {
-			var actionSpec = document.getElementById("actionSpec" + index);
-			actionSpec.setAttribute("value", "delete");
-			document.getElementById("single-pwd-form" + index).submit();
-		}
-
-		function findMenu(containerId) {
-			var container = document.getElementById(containerId);
-			return container.getElementsByClassName("menu")[0];
-		}
-
-		function findArrow(container) {
-			return container.getElementsByClassName("bi bi-chevron-up")[0];
-		}
-	</script>
+	<link rel='stylesheet' href="/stylesheets/style.css" />
+	<script src="/javascripts/script.js"></script>
 </head>
 <body onload="load()">
 	<div id="pwd-maker-menu">
@@ -221,23 +63,23 @@
 				for (let i = 0; i < passwords.length; i++) {
 					var pwd = passwords[i];%>
 					<form class="storedPwd" id="single-pwd-form<%=i%>" action="/dashboard" method="POST">
-						<input id="actionSpec<%=i%>" type="hidden" name="action" />
-						<input type="hidden" name="index" value="<%=i%>" />
-						<h2>Account: <%=pwd.account%></h2>
-						<h2 id="single-pwd-text<%=i%>">
-							Password: <%=pwd.password%>
-							<div class="actions">
-								<i class="bi bi-clipboard sp-action"></i>
-								<i class="bi bi-pencil sp-action" onclick="editPassword('<%=i%>')"></i>
-								<i class="bi bi-trash sp-action" onclick="submitDeletion('<%=i%>')"></i>
-							</div>
-						</h2>
-						<div id="single-pwd-input<%=i%>" class="removed">
-							Password: <input type="text" name="password" class="text-field reduced" value="<%=pwd.password%>" placeholder="Nuova password" required />
-							<div class="actions">
-								<i class="bi bi-check2 sp-action" onclick="submitChange('<%=i%>')"></i>
-								<i class="bi bi-x sp-action" onclick="editPassword('<%=i%>')"></i>
-							</div>
+						<div>
+							<input id="actionSpec<%=i%>" type="hidden" name="action" />
+							<input type="hidden" name="index" value="<%=i%>" />
+							<h2>Account: <%=pwd.account%></h2>
+							<h2 id="single-pwd-text<%=i%>">Password: <%=pwd.password%></h2>
+							<h2 id="single-pwd-input<%=i%>" class="editing removed">
+								<input type="text" name="password" class="text-field reduced" value="<%=pwd.password%>" placeholder="Nuova password" required />
+							</h2>
+						</div>
+						<div id="actions<%=i%>" class="actions">
+							<i class="bi bi-clipboard sp-action"></i>
+							<i class="bi bi-pencil sp-action" onclick="editPassword('<%=i%>')"></i>
+							<i class="bi bi-trash sp-action" onclick="deletePassword('<%=i%>')"></i>
+						</div>
+						<div id="submitButtons<%=i%>" class="actions removed">
+							<i id="confirmAction<%=i%>" class="bi bi-check2 sp-action"></i>
+							<i id="cancelAction<%=i%>" class="bi bi-x sp-action"></i>
 						</div>
 					</form>
 				<%}
