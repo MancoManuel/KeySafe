@@ -20,7 +20,7 @@
 			<input type="text" id="account" class="text-field" name="account" placeholder="Account" required />
 			<div class="pwd-input-container">
 				<input type="password" id="pwd" class="pwd-field" name="password" placeholder="Password" required />
-				<i id="eyeBtn" class="bi bi-eye-fill" onclick="togglePwdVisibility()"></i>
+				<i id="eyeBtn" class="bi bi-eye-fill eyeBtn" onclick="togglePwdVisibility()"></i>
 			</div>
 			<input type="submit" id="submitBtn" value="Crea" />
 			<label id="logLabel"></label>
@@ -67,16 +67,13 @@
 							<input id="actionSpec<%=i%>" type="hidden" name="action" />
 							<input type="hidden" name="index" value="<%=i%>" />
 							<h2>Account: <%=pwd.account%></h2>
-							<h2 id="single-pwd-text<%=i%>">
-								Password: <label id="pwd-text<%=i%>"><%=pwd.password%></label>
-							</h2>
-							<h2 id="single-pwd-input<%=i%>" class="editing removed">
-								<input type="text" name="password" class="text-field reduced" value="<%=pwd.password%>" placeholder="Nuova password" required />
+							<h2 id="single-pwd-input<%=i%>">
+								Password:<input id="pwd-text<%=i%>" type="password" name="password" class="text-field reduced" value="<%=pwd.password%>" placeholder="Nuova password" disabled required />
+								<i id="eyeBtn<%=i%>" class="bi bi-eye-slash-fill eyeBtn reduced" onclick="toggleSinglePwdVisibility('<%=i%>')"></i>
 							</h2>
 						</div>
 						<div id="actions<%=i%>" class="actions">
 							<i id="copyIcon<%=i%>" class="bi bi-clipboard sp-action" onclick="copyPassword('<%=i%>')"></i>
-							<i id="copyIconSuccess<%=i%>" class="bi bi-clipboard-check sp-action removed"></i>
 							<i class="bi bi-pencil sp-action" onclick="editPassword('<%=i%>')"></i>
 							<i class="bi bi-trash sp-action" onclick="deletePassword('<%=i%>')"></i>
 						</div>

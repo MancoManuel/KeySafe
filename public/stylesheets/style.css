@@ -35,6 +35,7 @@ h1 {
   background-color: transparent;
   color: black;
   outline: none;
+  transition: border-color 0.3s;
 }
 
 .pwd-input-container {
@@ -46,6 +47,7 @@ h1 {
   padding: 2px 15px 2px 15px;
   margin-top: 10px;
   background-color: transparent;
+  transition: border-color 0.3s;
 }
 
 .pwd-field {
@@ -58,7 +60,7 @@ h1 {
   width: 100%;
 }
 
-#eyeBtn::before {
+.eyeBtn::before {
   position: absolute;
   color: gray;
   font-size: 1.4rem;
@@ -67,9 +69,14 @@ h1 {
   cursor: pointer;
 }
 
-#eyeBtn:hover::before {
+.eyeBtn:hover::before {
   color: #222;
   transition: 0.15s ease-out;
+}
+
+.eyeBtn.reduced::before {
+  font-size: 1.2rem;
+  transform: translate(-140%, 30%);
 }
 
 input[type="submit"], input[type="button"] {
@@ -223,7 +230,7 @@ label[for="lengthSpinner"] {
 
 h2 {
   font-size: 20px;
-  align-content: center;
+  vertical-align: middle;
 }
 
 .sp-action {
@@ -276,15 +283,21 @@ h2 {
 
 .text-field.reduced {
   position: relative;
-  width: 60%;
+  width: 50%;
   height: 25px;
   margin: auto;
-  text-align: center;
+  margin-left: 5px;
+}
+
+.text-field.reduced:disabled {
+  border-color: gray;
+  transition: border-color 0.3s;
 }
 
 .actions {
   position: absolute;
-  right: 130px;
+  right: 80px;
+  user-select: none;
 }
 
 .editing {

@@ -80,6 +80,17 @@ function togglePwdVisibility() {
     }
 }
 
+function toggleSinglePwdVisibility(index) {
+    const pwdText = document.getElementById("pwd-text" + index);
+    if (pwdText.getAttribute("type") == "text")
+        pwdText.setAttribute("type", "password");
+    else pwdText.setAttribute("type", "text");
+
+    const eyeBtn = document.getElementById("eyeBtn" + index);
+    eyeBtn.classList.toggle("bi-eye-fill");
+    eyeBtn.classList.toggle("bi-eye-slash-fill");
+}
+
 function load(passwordNum) {
     var success = "<%= success %>"
     var label = document.querySelector("#logLabel");
@@ -93,12 +104,12 @@ function load(passwordNum) {
 
     passwords = passwordNum; 
 
-    /*showHideMakerForm();
-    hideMenuShape(findMenu("stored-pwd-menu"));*/
+    showHideMakerForm();
+    hideMenuShape(findMenu("stored-pwd-menu"));
 
-    // DEBUG
+    /*// DEBUG
     hideMenuShape(findMenu("pwd-maker-menu"));
-    showHidePasswords();
+    showHidePasswords();*/
 }
 
 function showHideMakerForm() {
@@ -135,9 +146,10 @@ function showMenuShape(menu) {
 }
 
 function editPassword(index) {
-    document.getElementById("single-pwd-text" + index).classList.toggle("removed");
     document.getElementById("actions" + index).classList.toggle("removed");
-    document.getElementById("single-pwd-input" + index).classList.toggle("removed");
+
+    const pwdText = document.getElementById("pwd-text" + index);
+    pwdText.disabled = !pwdText.disabled;
     document.getElementById("submitButtons" + index).classList.toggle("removed");
 
     var confirmAction = document.getElementById("confirmAction" + index);
@@ -170,13 +182,14 @@ function deletePassword(index) {
 
 function copyPassword(index) {
     var copyText = document.getElementById("pwd-text" + index);
-    navigator.clipboard.writeText(copyText.innerHTML);
+    navigator.clipboard.writeText(copyText.value);
 
-    document.getElementById("copyIcon" + index).classList.toggle("removed");
-    document.getElementById("copyIconSuccess" + index).classList.toggle("removed");
+    var copyIcon = document.getElementById("copyIcon" + index);
+    copyIcon.classList.toggle("bi-clipboard");
+    copyIcon.classList.toggle("bi-clipboard-check");
     setTimeout(() => {
-        document.getElementById("copyIcon" + index).classList.toggle("removed");
-        document.getElementById("copyIconSuccess" + index).classList.toggle("removed");
+        copyIcon.classList.toggle("bi-clipboard-check");
+        copyIcon.classList.toggle("bi-clipboard");
     }, 2000);
 }
 
