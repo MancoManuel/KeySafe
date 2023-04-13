@@ -168,6 +168,18 @@ function deletePassword(index) {
     cancelAction.setAttribute("onclick", "deletePassword(" + index + ")");
 }
 
+function copyPassword(index) {
+    var copyText = document.getElementById("pwd-text" + index);
+    navigator.clipboard.writeText(copyText.innerHTML);
+
+    document.getElementById("copyIcon" + index).classList.toggle("removed");
+    document.getElementById("copyIconSuccess" + index).classList.toggle("removed");
+    setTimeout(() => {
+        document.getElementById("copyIcon" + index).classList.toggle("removed");
+        document.getElementById("copyIconSuccess" + index).classList.toggle("removed");
+    }, 2000);
+}
+
 function submitDeletion(index) {
     var actionSpec = document.getElementById("actionSpec" + index);
     actionSpec.setAttribute("value", "delete");

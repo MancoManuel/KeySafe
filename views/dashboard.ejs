@@ -67,13 +67,16 @@
 							<input id="actionSpec<%=i%>" type="hidden" name="action" />
 							<input type="hidden" name="index" value="<%=i%>" />
 							<h2>Account: <%=pwd.account%></h2>
-							<h2 id="single-pwd-text<%=i%>">Password: <%=pwd.password%></h2>
+							<h2 id="single-pwd-text<%=i%>">
+								Password: <label id="pwd-text<%=i%>"><%=pwd.password%></label>
+							</h2>
 							<h2 id="single-pwd-input<%=i%>" class="editing removed">
 								<input type="text" name="password" class="text-field reduced" value="<%=pwd.password%>" placeholder="Nuova password" required />
 							</h2>
 						</div>
 						<div id="actions<%=i%>" class="actions">
-							<i class="bi bi-clipboard sp-action"></i>
+							<i id="copyIcon<%=i%>" class="bi bi-clipboard sp-action" onclick="copyPassword('<%=i%>')"></i>
+							<i id="copyIconSuccess<%=i%>" class="bi bi-clipboard-check sp-action removed"></i>
 							<i class="bi bi-pencil sp-action" onclick="editPassword('<%=i%>')"></i>
 							<i class="bi bi-trash sp-action" onclick="deletePassword('<%=i%>')"></i>
 						</div>
