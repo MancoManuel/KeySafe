@@ -1,13 +1,37 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
+var SessionStorage = require('connect-mongo');
+var sessions = require('express-session');
+var passport = require('passport');
 
 var indexRouter = require('./routes/index');
 var dashboardRouter = require('./routes/dashboard');
+var loginRouter = require('./routes/login');
 
 var app = express();
+
+// Database connection
+var dbConn = mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(m => m.connection.getClient());
+
+// Session saving
+app.use(sessions({
+  secret: "guestSecret",
+  saveUninitialized: false,
+  resave: false,
+  store : SessionStorage.create({clientPromise: dbConn})
+}));
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,14 +45,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/dashboard', dashboardRouter);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

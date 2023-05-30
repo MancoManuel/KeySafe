@@ -60,13 +60,13 @@
 		</div>
 		<div class="menu">
 			<%
-				for (let i = 0; i < passwords.length; i++) {
-					var pwd = passwords[i];%>
+				let i = 0;
+				for (let pwd of passwords) {%>
 					<form class="storedPwd" id="single-pwd-form<%=i%>" action="/dashboard" method="POST">
 						<div>
 							<input id="actionSpec<%=i%>" type="hidden" name="action" />
-							<input type="hidden" name="index" value="<%=i%>" />
-							<h2>Account: <%=pwd.account%></h2>
+							<input type="hidden" name="account" value="<%=pwd.accountName%>" />
+							<h2>Account: <%=pwd.accountName%></h2>
 							<h2 id="single-pwd-input<%=i%>">
 								Password:<input id="pwd-text<%=i%>" type="password" name="password" class="text-field reduced" value="<%=pwd.password%>" placeholder="Nuova password" disabled required />
 								<i id="eyeBtn<%=i%>" class="bi bi-eye-slash-fill eyeBtn reduced" onclick="toggleSinglePwdVisibility('<%=i%>')"></i>
@@ -82,8 +82,8 @@
 							<i id="cancelAction<%=i%>" class="bi bi-x sp-action"></i>
 						</div>
 					</form>
-				<%}
-			%>
+					<%i++;
+				}%>
 		</div>
 	</div>
 </body>
