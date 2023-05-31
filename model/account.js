@@ -1,13 +1,17 @@
 var mongoose = require('mongoose');
 
 var account = new mongoose.Schema({
-    userID: {
+    profileID: {
         type: String,
         required: true
     },
     provider: {
         type: String,
         required: true
+    },
+    key: {
+        type: Object,
+        required: false
     }
 });
 

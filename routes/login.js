@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var account = require('../model/account');
+const Cryptography = require('./cryptography');
 
 //Passport setup
 passport.use(new GoogleStrategy({
@@ -20,9 +21,12 @@ passport.use(new GoogleStrategy({
 
         //Creating the user if not yet registered
         if(!user) {
+            var crypto = new Cryptography();
+            var key = crypto.encrypt(Cryptography.generateKey());
             user = await account.create({
-                userID: profile.id,
-                provider: profile.provider
+                profileID: profile.id,
+                provider: profile.provider,
+                key: key
             });
         }
 
