@@ -28,6 +28,7 @@ router.post('/', async (req, res, next) => {
 	var action = req.body.action;
 	var success = 0;
 	if (action == "add") {
+		success = -1;
 		var account = req.body.account;
 		var found = await passwords.findOne({
 			accountName: account,
@@ -41,7 +42,7 @@ router.post('/', async (req, res, next) => {
 				userID: req.session.passport.user
 			});
 			success = 1;
-		}
+		} else success = 2;
 	} else if (action == "edit") {
 		var pwd = await passwords.findOne({
 			userID: req.session.passport.user,

@@ -1,0 +1,237 @@
+.menu-title {
+	font-family: "Bungee";
+	font-size: 32px;
+	color: #0030FF;
+	user-select: none;
+	text-shadow: none;
+}
+
+h2 {
+	font-size: 20px;
+	vertical-align: middle;
+	color: black;
+}
+
+.eyeBtn::before {
+	position: absolute;
+	color: gray;
+	font-size: 1.4rem;
+	transition: 0.15s ease-out;
+	transform: translate(-70%, 25%);
+	cursor: pointer;
+}
+
+.eyeBtn:hover::before {
+	color: #222;
+	transition: 0.15s ease-out;
+}
+
+.eyeBtn.reduced::before {
+	font-size: 1.2rem;
+	transform: translate(-140%, 30%);
+}
+
+#submitBtn {
+	margin-top: 20px;
+}
+
+#logLabel {
+	display: block;
+	height: 20px;
+	margin: 30px 0;
+	font-size: 18px;
+}
+
+#pwdOptions {
+	margin: auto;
+}
+
+#labeledCb {
+	text-align: center;
+	height: 25px;
+	padding: 0 20px;
+	user-select: none;
+}
+
+#labeledCb>input,
+#labeledCb label {
+	cursor: pointer;
+}
+
+#labeledSpinner {
+	display: block;
+	margin: 30px 0;
+}
+
+label[for="lengthSpinner"] {
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+#lengthSpinner {
+	outline: none;
+	border: 3px solid #0030FF;
+	border-radius: 10px;
+	padding: 5px;
+	text-align: center;
+}
+
+#generatePwdBtn {
+	margin-top: 20px;
+}
+
+.header {
+	margin-top: 30px;
+	position: relative;
+	background-color: white;
+	border-radius: 30px;
+	padding: 40px 80px;
+	width: 600px;
+	align-items: center;
+	justify-content: center;
+	display: inline-flex;
+	box-shadow: 0 5px 20px #000;
+	z-index: 1;
+}
+
+.bi.bi-chevron-up {
+	position: absolute;
+	font-size: 1.5rem;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	transition: background-color 0.3s, transform 0.4s ease-in-out;
+	transform: translateX(330px) rotate(180deg);
+	cursor: pointer;
+}
+
+.bi.bi-chevron-up:hover {
+	background-color: lightgray;
+	transition: background-color 0.3s;
+	transition: transform 0.4s ease-in-out;
+}
+
+.bi.bi-chevron-up:active {
+	transition: 0s;
+	background-color: gray;
+}
+
+.bi.bi-chevron-up.disabled {
+	pointer-events: none;
+	color: gray;
+}
+
+.bi.bi-chevron-up:before {
+	transform: translateY(30%);
+}
+
+.bi.bi-chevron-up.open {
+	transition: transform 0.4s ease-in-out;
+	transform: translateX(330px) rotate(0deg);
+}
+
+.menu {
+	background-color: white;
+	width: 600px;
+	margin: auto;
+	margin-bottom: -40px;
+	border-radius: 0 0 30px 30px;
+	padding: 40px 80px;
+	transform: translateY(-90px) scaleY(0);
+	transform-origin: 0 0;
+	transition: 0.5s;
+	transition-delay: position 0.5s;
+	box-shadow: none;
+}
+
+.storedPwd {
+	margin: auto;
+	margin-top: 30px;
+	line-height: 1.5;
+	width: max-content;
+	align-items: center;
+	justify-content: right;
+	display: flex;
+}
+
+.sp-action {
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+.sp-action::before {
+	position: relative;
+	z-index: 1;
+	margin-left: 2px;
+}
+
+.sp-action::after {
+	position: absolute;
+	content: '';
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	transform: translate(-24px, -1px);
+}
+
+.sp-action:hover::after {
+	background-color: lightgray;
+}
+
+.sp-action:active::after {
+	background-color: gray;
+}
+
+.bi.bi-check2::before {
+	font-size: 1.3rem;
+	color: green;
+	left: -5px;
+}
+
+.bi.bi-check2::after {
+	transform: translate(-31px, -4px);
+}
+
+.bi.bi-x::before {
+	font-size: 1.4rem;
+	color: red;
+	left: -10px;
+}
+
+.bi.bi-x::after {
+	transform: translate(-38px, -3px);
+}
+
+.text-field.reduced {
+	position: relative;
+	width: 50%;
+	height: 25px;
+	margin: auto;
+	margin-left: 5px;
+}
+
+.text-field.reduced:disabled {
+	border-color: gray;
+	transition: border-color 0.3s;
+}
+
+.actions {
+	position: absolute;
+	right: 80px;
+	user-select: none;
+}
+
+.editing {
+	position: relative;
+}
+
+.show {
+	display: block;
+	transform: translateY(-40px) scaleY(1);
+	box-shadow: 5px 5px 30px #000;
+	transition: 0.5s;
+}
+
+.removed {
+	display: none;
+}

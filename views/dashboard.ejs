@@ -6,13 +6,14 @@
 	<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Bungee">
 	<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Russo+One">
 	<link rel='stylesheet' href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
-	<link rel='stylesheet' href="/stylesheets/style.css" />
+	<link rel='stylesheet' href="/stylesheets/style.css">
+	<link rel='stylesheet' href="/stylesheets/dashboard.css">
 	<script src="/javascripts/script.js"></script>
 </head>
-<body onload="load('<%=passwords.length%>')">
+<body onload="load('<%=passwords.length%>', '<%=success%>')">
 	<div id="pwd-maker-menu">
 		<div class="header">
-			<h1>Crea una nuova password</h1>
+			<h1 class="menu-title">Crea una nuova password</h1>
 			<i class="bi bi-chevron-up" onclick="showHideMakerForm()"></i>
 		</div>
 		<form class="menu" action="/dashboard" method="POST" name="form">
@@ -55,7 +56,7 @@
 	</div>
 	<div id="stored-pwd-menu">
 		<div class="header">
-			<h1>Password salvate</h1>
+			<h1 class="menu-title">Password salvate</h1>
 			<i id="sp-header-arrow" class="bi bi-chevron-up" onclick="showHidePasswords()"></i>
 		</div>
 		<div class="menu">

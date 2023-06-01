@@ -37,6 +37,13 @@ passport.use(new GoogleStrategy({
 passport.serializeUser((user, done) => done(null, user._id));
 passport.deserializeUser((userId, done) => done(null, userId));
 
+router.get('/', (req, res, next) => {
+    if (req.body.failed == undefined)
+        res.redirect('/login/google');
+    else if (req.body.failed == true)
+        res.render('error');
+});
+
 // GET Google OAuth handling
 router.get('/google', passport.authenticate('google'));
 

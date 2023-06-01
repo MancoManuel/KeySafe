@@ -90,14 +90,18 @@ function toggleSinglePwdVisibility(index) {
     eyeBtn.classList.toggle("bi-eye-slash-fill");
 }
 
-function load(passwordNum) {
-    var success = "<%= success %>"
+function load(passwordNum, success) {
     var label = document.querySelector("#logLabel");
     if (success == 1) {
         label.innerHTML = "Password creata!";
         label.setAttribute("style", "color: green;");
+        console.log("Password creata!");
     } else if (success == -1) {
         label.innerHTML = "Password non creata!";
+        label.setAttribute("style", "color: red;");
+        console.log("Password non creata!");
+    } else if (success == 2) {
+        label.innerHTML = "Password esistente!";
         label.setAttribute("style", "color: red;");
     }
 
