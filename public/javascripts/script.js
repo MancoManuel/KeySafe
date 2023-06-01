@@ -71,13 +71,12 @@ function togglePwdVisibility() {
     const pwdField = document.querySelector("#pwd");
     const eyeBtn = document.querySelector("#eyeBtn");
 
-    if (pwdField.getAttribute("type") == "password") {
+    if (pwdField.getAttribute("type") == "password")
         pwdField.setAttribute("type", "text");
-        eyeBtn.setAttribute("class", "bi bi-eye-slash-fill");
-    } else {
-        pwdField.setAttribute("type", "password");
-        eyeBtn.setAttribute("class", "bi bi-eye-fill");
-    }
+    else pwdField.setAttribute("type", "password");
+
+    eyeBtn.classList.toggle("bi-eye-fill");
+    eyeBtn.classList.toggle("bi-eye-slash-fill");
 }
 
 function toggleSinglePwdVisibility(index) {
@@ -106,10 +105,10 @@ function load(passwordNum) {
 
     showHideMakerForm();
     hideMenuShape(findMenu("stored-pwd-menu"));
-
-    /*// DEBUG
-    hideMenuShape(findMenu("pwd-maker-menu"));
-    showHidePasswords();*/
+    if (passwords == 0) {
+        var arrow = findArrow(findMenu("stored-pwd-menu").parentNode);
+        arrow.classList.add("disabled");
+    }
 }
 
 function showHideMakerForm() {

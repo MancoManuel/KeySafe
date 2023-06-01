@@ -19,7 +19,6 @@ router.get('/', async (req, res, next) => {
 		}
 
 		const passwordList = await findPasswords(req);
-		console.log(passwordList);
 		var response = { passwords: passwordList, success: 0 };
 		res.render('dashboard', response);
 	}
@@ -30,16 +29,19 @@ router.post('/', async (req, res, next) => {
 	var success = 0;
 	if (action == "add") {
 		var account = req.body.account;
-		console.log("Chiave dell'utente: " + userCrypto.key);
-		var password = userCrypto.encrypt(req.body.password);
-		var userID = req.session.passport.user;
-		console.log("Password: " + password);
-		await passwords.create({
+		var found = await passwords.findOne({
 			accountName: account,
-			password: password,
-			userID: userID
+			userID: req.session.passport.user
 		});
-		success = 1;
+
+		if (!found) {
+			await passwords.create({
+				accountName: account,
+				password: userCrypto.encrypt(req.body.password),
+				userID: req.session.passport.user
+			});
+			success = 1;
+		}
 	} else if (action == "edit") {
 		var pwd = await passwords.findOne({
 			userID: req.session.passport.user,
@@ -51,7 +53,7 @@ router.post('/', async (req, res, next) => {
 	} else if (action == "delete") {
 		await passwords.deleteOne({
 			userID: req.session.passport.user,
-			account: req.body.account
+			accountName: req.body.account
 		});
 	}
 
@@ -63,7 +65,7 @@ router.post('/', async (req, res, next) => {
 async function findPasswords(req) {
 	var passwordList = await passwords.find({ userID: req.session.passport.user }).cursor().toArray();
 	for (let i = 0; i < passwordList.length; i++)
-		passwordList[i].password = userCrypto.decrypt(passwordList[i].password).toString();
+		passwordList[i].password = userCrypto.decrypt(passwordList[i].password);
 	return passwordList;
 }
 

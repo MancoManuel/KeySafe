@@ -9,13 +9,13 @@ const Cryptography = require('./cryptography');
 passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: 'http://localhost:5500/login/google/callback',
+        callbackURL: '/login/google/callback',
         scope: [ 'profile' ]
     },
     async (accessToken, refreshToken, profile, cb) => {
         //Getting account info for verifying its existence
         var user = await account.findOne({
-            userID: profile.id,
+            profileID: profile.id,
             provider: profile.provider
         });
 

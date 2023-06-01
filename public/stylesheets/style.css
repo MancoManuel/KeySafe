@@ -13,7 +13,8 @@ body {
   background: linear-gradient(90deg, #0030FF 0%, #10AAFF 100%);
   color: black;
   text-align: center;
-  height: 100vh;
+  height: max-content;
+  padding: 50px;
 }
 
 h1 {
@@ -177,10 +178,6 @@ label[for="lengthSpinner"] {
   cursor: pointer;
 }
 
-.bi.bi-chevron-up:before {
-  transform: translateY(30%);
-}
-
 .bi.bi-chevron-up:hover {
   background-color: lightgray;
   transition: background-color 0.3s;
@@ -190,6 +187,15 @@ label[for="lengthSpinner"] {
 .bi.bi-chevron-up:active {
   transition: 0s;
   background-color: gray;
+}
+
+.bi.bi-chevron-up.disabled {
+  pointer-events: none;
+  color: gray;
+}
+
+.bi.bi-chevron-up:before {
+  transform: translateY(30%);
 }
 
 .bi.bi-chevron-up.open {
