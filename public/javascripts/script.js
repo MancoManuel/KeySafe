@@ -107,12 +107,14 @@ function load(passwordNum, success) {
 
     passwords = passwordNum; 
 
-    showHideMakerForm();
+    /*showHideMakerForm();
     hideMenuShape(findMenu("stored-pwd-menu"));
     if (passwords == 0) {
         var arrow = findArrow(findMenu("stored-pwd-menu").parentNode);
         arrow.classList.add("disabled");
-    }
+    }*/
+    hideMenuShape(findMenu("pwd-maker-menu"));
+    showHidePasswords();
 }
 
 function showHideMakerForm() {
@@ -153,6 +155,9 @@ function editPassword(index) {
 
     const pwdText = document.getElementById("pwd-text" + index);
     pwdText.disabled = !pwdText.disabled;
+    const accountText = document.getElementById("account-text" + index);
+    accountText.disabled = !accountText.disabled;
+
     document.getElementById("submitButtons" + index).classList.toggle("removed");
 
     var confirmAction = document.getElementById("confirmAction" + index);
@@ -188,11 +193,11 @@ function copyPassword(index) {
     navigator.clipboard.writeText(copyText.value);
 
     var copyIcon = document.getElementById("copyIcon" + index);
-    copyIcon.classList.toggle("bi-clipboard");
-    copyIcon.classList.toggle("bi-clipboard-check");
+    copyIcon.classList.toggle("bi-clipboard-fill");
+    copyIcon.classList.toggle("bi-clipboard-check-fill");
     setTimeout(() => {
-        copyIcon.classList.toggle("bi-clipboard-check");
-        copyIcon.classList.toggle("bi-clipboard");
+        copyIcon.classList.toggle("bi-clipboard-check-fill");
+        copyIcon.classList.toggle("bi-clipboard-fill");
     }, 2000);
 }
 

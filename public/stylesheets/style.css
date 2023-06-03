@@ -38,13 +38,13 @@ p {
 
 .text-field {
 	margin: auto;
+	margin-top: 10px;
 	appearance: none;
 	border: 3px solid #0030FF;
 	border-radius: 15px;
 	width: 70%;
 	height: 35px;
 	padding: 2px 15px 2px 15px;
-	margin-top: 40px;
 	background-color: transparent;
 	color: black;
 	outline: none;
@@ -53,12 +53,12 @@ p {
 
 .pwd-input-container {
 	margin: auto;
+	margin-top: 10px;
 	border: 3px solid #0030FF;
 	border-radius: 15px;
 	width: 70%;
 	height: 35px;
 	padding: 2px 15px 2px 15px;
-	margin-top: 10px;
 	background-color: transparent;
 	transition: border-color 0.3s;
 }

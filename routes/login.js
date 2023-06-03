@@ -14,20 +14,24 @@ passport.use(new GoogleStrategy({
     },
     async (accessToken, refreshToken, profile, cb) => {
         //Getting account info for verifying its existence
-        var user = await account.findOne({
-            profileID: profile.id,
-            provider: profile.provider
-        });
-
-        //Creating the user if not yet registered
-        if(!user) {
-            var crypto = new Cryptography();
-            var key = crypto.encrypt(Cryptography.generateKey());
-            user = await account.create({
+        try {
+            var user = await account.findOne({
                 profileID: profile.id,
-                provider: profile.provider,
-                key: key
+                provider: profile.provider
             });
+
+            //Creating the user if not yet registered
+            if(!user) {
+                var crypto = new Cryptography();
+                var key = crypto.encrypt(Cryptography.generateKey());
+                user = await account.create({
+                    profileID: profile.id,
+                    provider: profile.provider,
+                    key: key
+                });
+            }
+        } catch(error) {
+           console.log(error);
         }
 
         cb(null, user);

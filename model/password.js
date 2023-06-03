@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
 
 var password = new mongoose.Schema({
+    service: {
+        type: String,
+        required: true
+    },
     accountName: {
         type: String,
         required: true

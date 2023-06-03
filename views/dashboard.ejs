@@ -18,7 +18,8 @@
 		</div>
 		<form class="menu" action="/dashboard" method="POST" name="form">
 			<input type="hidden" name="action" value="add" />
-			<input type="text" id="account" class="text-field" name="account" placeholder="Account" required />
+			<input type="text" id="service" class="text-field" name="service" placeholder="Servizio (e.g. Google, Facebook, etc...)" required />
+			<input type="text" id="account" class="text-field" name="account" placeholder="Account (Username or E-mail)" required />
 			<div class="pwd-input-container">
 				<input type="password" id="pwd" class="pwd-field" name="password" placeholder="Password" required />
 				<i id="eyeBtn" class="bi bi-eye-fill eyeBtn" onclick="togglePwdVisibility()"></i>
@@ -28,7 +29,7 @@
 			<table id="pwdOptions">
 				<tr>
 					<td id="labeledCb">
-						<input type="checkbox" id="uppercaseCb" checked="true" value="ciao" />
+						<input type="checkbox" id="uppercaseCb" checked="true" />
 						<label for="uppercaseCb">Lettere maiuscole</label>
 					</td>
 					<td id="labeledCb">
@@ -66,15 +67,16 @@
 					<form class="storedPwd" id="single-pwd-form<%=i%>" action="/dashboard" method="POST">
 						<div>
 							<input id="actionSpec<%=i%>" type="hidden" name="action" />
-							<input type="hidden" name="account" value="<%=pwd.accountName%>" />
-							<h2>Account: <%=pwd.accountName%></h2>
+							<input type="hidden" name="service" value="<%=pwd.service%>" />
+							<h2>Servizio: <%=pwd.service%></h2>
+							<h2>Account: <input id="account-text<%=i%>" type="text" name="account" class="text-field reduced" value="<%=pwd.accountName%>" placeholder="Nuovo account" disabled required /></h2>
 							<h2 id="single-pwd-input<%=i%>">
-								Password:<input id="pwd-text<%=i%>" type="password" name="password" class="text-field reduced" value="<%=pwd.password%>" placeholder="Nuova password" disabled required />
+								Password: <input id="pwd-text<%=i%>" type="password" name="password" class="text-field reduced" value="<%=pwd.password%>" placeholder="Nuova password" disabled required />
+								<i id="copyIcon<%=i%>" class="bi bi-clipboard-fill copyBtn" onclick="copyPassword('<%=i%>')"></i>
 								<i id="eyeBtn<%=i%>" class="bi bi-eye-slash-fill eyeBtn reduced" onclick="toggleSinglePwdVisibility('<%=i%>')"></i>
 							</h2>
 						</div>
 						<div id="actions<%=i%>" class="actions">
-							<i id="copyIcon<%=i%>" class="bi bi-clipboard sp-action" onclick="copyPassword('<%=i%>')"></i>
 							<i class="bi bi-pencil sp-action" onclick="editPassword('<%=i%>')"></i>
 							<i class="bi bi-trash sp-action" onclick="deletePassword('<%=i%>')"></i>
 						</div>

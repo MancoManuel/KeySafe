@@ -12,6 +12,10 @@ h2 {
 	color: black;
 }
 
+#service {
+	margin-top: 30px;
+}
+
 .eyeBtn::before {
 	position: absolute;
 	color: gray;
@@ -28,7 +32,7 @@ h2 {
 
 .eyeBtn.reduced::before {
 	font-size: 1.2rem;
-	transform: translate(-140%, 30%);
+	transform: translate(-60px, 7px);
 }
 
 #submitBtn {
@@ -154,6 +158,23 @@ label[for="lengthSpinner"] {
 	display: flex;
 }
 
+.storedPwd h2 {
+	font-weight: normal;
+}
+
+.copyBtn {
+	position: absolute;
+	transform: translate(-30px, 5px);
+	color: gray;
+	transition: 0.15s ease-out;
+	cursor: pointer;
+}
+
+.copyBtn:hover {
+	color: #222;
+	transition: 0.15s ease-out;
+}
+
 .sp-action {
 	cursor: pointer;
 	vertical-align: middle;
@@ -204,10 +225,11 @@ label[for="lengthSpinner"] {
 
 .text-field.reduced {
 	position: relative;
-	width: 50%;
+	width: 60%;
 	height: 25px;
 	margin: auto;
 	margin-left: 5px;
+	margin-bottom: 5px;
 }
 
 .text-field.reduced:disabled {
