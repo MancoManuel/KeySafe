@@ -17,11 +17,12 @@ h2 {
 }
 
 .eyeBtn::before {
-	position: absolute;
+	position: relative;
 	color: gray;
 	font-size: 1.4rem;
 	transition: 0.15s ease-out;
-	transform: translate(-70%, 25%);
+	top: -80%;
+	left: 48%;
 	cursor: pointer;
 }
 
@@ -32,7 +33,8 @@ h2 {
 
 .eyeBtn.reduced::before {
 	font-size: 1.2rem;
-	transform: translate(-60px, 7px);
+	left: 8px;
+	top: 2px;
 }
 
 #submitBtn {
@@ -163,11 +165,10 @@ label[for="lengthSpinner"] {
 }
 
 .copyBtn {
-	position: absolute;
-	transform: translate(-30px, 5px);
 	color: gray;
 	transition: 0.15s ease-out;
 	cursor: pointer;
+	transform: translateX(2px);
 }
 
 .copyBtn:hover {
@@ -206,35 +207,64 @@ label[for="lengthSpinner"] {
 .bi.bi-check2::before {
 	font-size: 1.3rem;
 	color: green;
-	left: -5px;
+	top: 3px;
+	left: 8px;
 }
 
 .bi.bi-check2::after {
-	transform: translate(-31px, -4px);
+	transform: translate(-18px, -1px);
 }
 
 .bi.bi-x::before {
 	font-size: 1.4rem;
 	color: red;
-	left: -10px;
+	top: 3px;
+	left: 8px;
 }
 
 .bi.bi-x::after {
-	transform: translate(-38px, -3px);
+	transform: translate(-20px, -1px);
 }
 
 .text-field.reduced {
 	position: relative;
-	width: 60%;
+	width: 50%;
 	height: 25px;
-	margin: auto;
+	margin: 0;
 	margin-left: 5px;
 	margin-bottom: 5px;
+	padding-left: 10px;
 }
 
 .text-field.reduced:disabled {
 	border-color: gray;
+	color: rgb(84, 84, 84);
 	transition: border-color 0.3s;
+}
+
+.single-account,
+.single-pwd {
+	display: flex;
+	justify-content: center;
+}
+
+.single-account h2,
+.single-pwd h2 {
+	margin-top: 3px;
+	height: 25px;
+}
+
+.pwd-input-container.reduced {
+	display: flex;
+	width: 50%;
+	height: 25px;
+	margin: 0;
+	margin-left: 5px;
+	padding-left: 10px;
+}
+
+.pwd-field.reduced {
+	margin-right: 5px;
 }
 
 .actions {

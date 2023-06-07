@@ -4,18 +4,12 @@ var accounts = require('../model/account');
 var passwords = require('../model/password');
 var Cryptography = require('./cryptography');
 
-const passwordList = [{
-	service: "Google",
-	accountName: "manu",
-	password: "ciao"
-}];
-
 /* GET users listing. */
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
 	if (req.session.passport === undefined)
 		res.redirect('/login/google');
 	else {
-		//const passwordList = await findPasswords(req, await getCrypto(req));
+		const passwordList = await findPasswords(req, await getCrypto(req));
 		var response = { passwords: passwordList, success: 0 };
 		res.render('dashboard', response);
 	}
@@ -67,8 +61,8 @@ router.post('/', async (req, res, next) => {
 
 async function findPasswords(req, userCrypto) {
 	var passwordList = await passwords.find({ userID: req.session.passport.user }).cursor().toArray();
-	for (let i = 0; i < passwordList.length; i++)
-		passwordList[i].password = userCrypto.decrypt(passwordList[i].password);
+	for (let pwd of passwordList)
+		pwd.password = userCrypto.decrypt(pwd.password).toString();
 	return passwordList;
 }
 

@@ -63,6 +63,10 @@ p {
 	transition: border-color 0.3s;
 }
 
+.pwd-input-container.disabled {
+	border-color: gray;
+}
+
 .pwd-field {
 	appearance: none;
 	border: none;

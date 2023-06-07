@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<title>Password Manager - Dashboard</title>
 	<link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Bungee">
@@ -10,7 +9,7 @@
 	<link rel='stylesheet' href="/stylesheets/dashboard.css">
 	<script src="/javascripts/script.js"></script>
 </head>
-<body onload="load('<%=passwords.length%>', '<%=success%>')">
+<body onload="load('<%=JSON.stringify(passwords)%>', '<%=success%>')">
 	<div id="pwd-maker-menu">
 		<div class="header">
 			<h1 class="menu-title">Crea una nuova password</h1>
@@ -69,12 +68,18 @@
 							<input id="actionSpec<%=i%>" type="hidden" name="action" />
 							<input type="hidden" name="service" value="<%=pwd.service%>" />
 							<h2>Servizio: <%=pwd.service%></h2>
-							<h2>Account: <input id="account-text<%=i%>" type="text" name="account" class="text-field reduced" value="<%=pwd.accountName%>" placeholder="Nuovo account" disabled required /></h2>
-							<h2 id="single-pwd-input<%=i%>">
-								Password: <input id="pwd-text<%=i%>" type="password" name="password" class="text-field reduced" value="<%=pwd.password%>" placeholder="Nuova password" disabled required />
-								<i id="copyIcon<%=i%>" class="bi bi-clipboard-fill copyBtn" onclick="copyPassword('<%=i%>')"></i>
-								<i id="eyeBtn<%=i%>" class="bi bi-eye-slash-fill eyeBtn reduced" onclick="toggleSinglePwdVisibility('<%=i%>')"></i>
-							</h2>
+							<div class="single-account">
+								<h2>Account:</h2>
+								<input id="account-text<%=i%>" type="text" name="account" class="text-field reduced" value="<%=pwd.accountName%>" placeholder="Nuovo account" disabled required />
+							</div>
+							<div class="single-pwd">
+								<h2 id="single-pwd-input<%=i%>">Password:</h2> 
+								<div id="single-pwd-container<%=i%>" class="pwd-input-container reduced disabled">
+									<input type="password" id="pwd-text<%=i%>" class="pwd-field reduced" name="password" value="<%=pwd.password%>" placeholder="Nuova password" disabled required />
+									<i id="copyIcon<%=i%>" class="bi bi-clipboard-fill copyBtn" onclick="copyPassword('<%=i%>')"></i>
+									<i id="eyeBtn<%=i%>" class="bi bi-eye-fill eyeBtn reduced" onclick="toggleSinglePwdVisibility('<%=i%>')"></i>
+								</div>
+							</div>
 						</div>
 						<div id="actions<%=i%>" class="actions">
 							<i class="bi bi-pencil sp-action" onclick="editPassword('<%=i%>')"></i>

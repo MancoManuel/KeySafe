@@ -90,7 +90,7 @@ function toggleSinglePwdVisibility(index) {
     eyeBtn.classList.toggle("bi-eye-slash-fill");
 }
 
-function load(passwordNum, success) {
+function load(passwordList, success) {
     var label = document.querySelector("#logLabel");
     if (success == 1) {
         label.innerHTML = "Password creata!";
@@ -105,16 +105,14 @@ function load(passwordNum, success) {
         label.setAttribute("style", "color: red;");
     }
 
-    passwords = passwordNum; 
+    passwords = JSON.parse(passwordList);
 
-    /*showHideMakerForm();
+    showHideMakerForm();
     hideMenuShape(findMenu("stored-pwd-menu"));
-    if (passwords == 0) {
+    if (passwords.length == 0) {
         var arrow = findArrow(findMenu("stored-pwd-menu").parentNode);
         arrow.classList.add("disabled");
-    }*/
-    hideMenuShape(findMenu("pwd-maker-menu"));
-    showHidePasswords();
+    }
 }
 
 function showHideMakerForm() {
@@ -122,7 +120,7 @@ function showHideMakerForm() {
 }
 
 function showHidePasswords() {
-    if (passwords > 0)
+    if (passwords.length > 0)
         showHideMenu(findMenu("stored-pwd-menu"));
 }
 
@@ -153,6 +151,8 @@ function showMenuShape(menu) {
 function editPassword(index) {
     document.getElementById("actions" + index).classList.toggle("removed");
 
+    const pwdContainer = document.getElementById("single-pwd-container" + index);
+    pwdContainer.classList.toggle("disabled");
     const pwdText = document.getElementById("pwd-text" + index);
     pwdText.disabled = !pwdText.disabled;
     const accountText = document.getElementById("account-text" + index);
@@ -165,6 +165,12 @@ function editPassword(index) {
 
     var cancelAction = document.getElementById("cancelAction" + index);
     cancelAction.setAttribute("onclick", "editPassword(" + index + ")");
+
+    if (pwdContainer.classList.contains("disabled")) {
+        console.log("Fatto");
+        accountText.value = passwords[index].accountName;
+        pwdText.value = passwords[index].password;
+    }
 }
 
 function toggleSubmitButtons(index) {
