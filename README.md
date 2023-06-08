@@ -1,7 +1,7 @@
-# Password Manager
+# KeySafe
 
 ## Description
-Web application which can help you to manage all of your account passwords.
+KeySafe is a web application which can help you to manage all of your account passwords in a secure way.
 
 ## Used technologies
 - HTML, JavaScript and CSS to design and style the pages of the web application;
@@ -16,7 +16,7 @@ npm start
 
 ## Usage
 On the index page you can login using your Google account to access your personal dashboard, where you can create a new password for any of your accounts, or you can visualize, modify or delete your saved passwords.
-If you want to create a new password, you can also use the "Generate" button to produce a random password which respects only the options you have selected before.
+If you want to create a new password, you can also use the "Generate" button to produce a random one which respects all the paramters you have selected before.
 
 ## Feedback
 If you have any suggestions to help me improve this web application, you can send me an e-mail to the following address: manuel.manco001@studenti.uniparthenope.it
