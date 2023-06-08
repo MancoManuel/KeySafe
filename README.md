@@ -22,4 +22,4 @@ If you want to create a new password, you can also use the "Generate" button to 
 If you have any suggestions to help me improve this web application, you can send me an e-mail to the following address: manuel.manco001@studenti.uniparthenope.it
 
 ## License
-GNU General Public License v3.0
+Apache License 2.0
