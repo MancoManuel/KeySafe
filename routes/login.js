@@ -42,10 +42,9 @@ passport.serializeUser((user, done) => done(null, user._id));
 passport.deserializeUser((userId, done) => done(null, userId));
 
 router.get('/', (req, res, next) => {
-    if (req.body.failed == undefined)
+    if (!req.body.failed)
         res.redirect('/login/google');
-    else if (req.body.failed == true)
-        res.render('error');
+    else res.render('error');
 });
 
 // GET Google OAuth handling

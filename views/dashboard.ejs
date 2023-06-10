@@ -10,88 +10,91 @@
 	<script src="/javascripts/script.js"></script>
 </head>
 <body onload="load('<%=JSON.stringify(passwords)%>', '<%=success%>')">
-	<div id="pwd-maker-menu">
-		<div class="header">
-			<h1 class="menu-title">Crea una nuova password</h1>
-			<i class="bi bi-chevron-up" onclick="showHideMakerForm()"></i>
-		</div>
-		<form class="menu" action="/dashboard" method="POST" name="form">
-			<input type="hidden" name="action" value="add" />
-			<input type="text" id="service" class="text-field" name="service" placeholder="Servizio (e.g. Google, Facebook, etc...)" required />
-			<input type="text" id="account" class="text-field" name="account" placeholder="Account (Username or E-mail)" required />
-			<div class="pwd-input-container">
-				<input type="password" id="pwd" class="pwd-field" name="password" placeholder="Password" required />
-				<i id="eyeBtn" class="bi bi-eye-fill eyeBtn" onclick="togglePwdVisibility()"></i>
+	<i title="Log Out" class="bi bi-box-arrow-left" onclick="window.location.href = '/logout'"></i>
+	<div class="center">
+		<div id="pwd-maker-menu">
+			<div class="header">
+				<h1 class="menu-title">Crea una nuova password</h1>
+				<i class="bi bi-chevron-up" onclick="showHideMakerForm()"></i>
 			</div>
-			<input type="submit" id="submitBtn" value="Crea" />
-			<label id="logLabel"></label>
-			<table id="pwdOptions">
-				<tr>
-					<td id="labeledCb">
-						<input type="checkbox" id="uppercaseCb" checked="true" />
-						<label for="uppercaseCb">Lettere maiuscole</label>
-					</td>
-					<td id="labeledCb">
-						<input type="checkbox" id="lowercaseCb" checked="true" />
-						<label for="lowercaseCb">Lettere minuscole</label>
-					</td>
-				</tr>
-				<tr>
-					<td id="labeledCb">
-						<input type="checkbox" id="numbersCb" checked="true" />
-						<label for="numbersCb">Numeri</label>
-					</td>
-					<td id="labeledCb">
-						<input type="checkbox" id="symbolsCb" checked="true" />
-						<label for="symbolsCb">Simboli</label>
-					</td>
-				</tr>
-			</table>
-			<div id="labeledSpinner">
-				<label for="lengthSpinner">Lunghezza:</label>
-				<input type="number" id="lengthSpinner" min="4" max="24" step="1" value="10" />
-			</div>
-			<input type="button" id="generatePwdBtn" onclick="generate();" value="Genera" />
-		</form>
-	</div>
-	<div id="stored-pwd-menu">
-		<div class="header">
-			<h1 class="menu-title">Password salvate</h1>
-			<i id="sp-header-arrow" class="bi bi-chevron-up" onclick="showHidePasswords()"></i>
+			<form class="menu" action="/dashboard" method="POST" name="form">
+				<input type="hidden" name="action" value="add" />
+				<input type="text" id="service" class="text-field" name="service" placeholder="Servizio (e.g. Gmail, Facebook, etc...)" required />
+				<input type="text" id="account" class="text-field" name="account" placeholder="Account (E-mail or Username)" required />
+				<div class="pwd-input-container">
+					<input type="password" id="pwd" class="pwd-field" name="password" placeholder="Password" required />
+					<i id="eyeBtn" class="bi bi-eye-fill eyeBtn" onclick="togglePwdVisibility()"></i>
+				</div>
+				<input type="submit" id="submitBtn" value="Crea" />
+				<label id="logLabel"></label>
+				<table id="pwdOptions">
+					<tr>
+						<td id="labeledCb">
+							<input type="checkbox" id="uppercaseCb" checked="true" />
+							<label for="uppercaseCb">Lettere maiuscole</label>
+						</td>
+						<td id="labeledCb">
+							<input type="checkbox" id="lowercaseCb" checked="true" />
+							<label for="lowercaseCb">Lettere minuscole</label>
+						</td>
+					</tr>
+					<tr>
+						<td id="labeledCb">
+							<input type="checkbox" id="numbersCb" checked="true" />
+							<label for="numbersCb">Numeri</label>
+						</td>
+						<td id="labeledCb">
+							<input type="checkbox" id="symbolsCb" checked="true" />
+							<label for="symbolsCb">Simboli</label>
+						</td>
+					</tr>
+				</table>
+				<div id="labeledSpinner">
+					<label for="lengthSpinner">Lunghezza:</label>
+					<input type="number" id="lengthSpinner" min="4" max="24" step="1" value="10" />
+				</div>
+				<input type="button" id="generatePwdBtn" onclick="generate();" value="Genera" />
+			</form>
 		</div>
-		<div class="menu">
-			<%
-				let i = 0;
-				for (let pwd of passwords) {%>
-					<form class="storedPwd" id="single-pwd-form<%=i%>" action="/dashboard" method="POST">
-						<div>
-							<input id="actionSpec<%=i%>" type="hidden" name="action" />
-							<input type="hidden" name="service" value="<%=pwd.service%>" />
-							<h2>Servizio: <%=pwd.service%></h2>
-							<div class="single-account">
-								<h2>Account:</h2>
-								<input id="account-text<%=i%>" type="text" name="account" class="text-field reduced" value="<%=pwd.accountName%>" placeholder="Nuovo account" disabled required />
-							</div>
-							<div class="single-pwd">
-								<h2 id="single-pwd-input<%=i%>">Password:</h2> 
-								<div id="single-pwd-container<%=i%>" class="pwd-input-container reduced disabled">
-									<input type="password" id="pwd-text<%=i%>" class="pwd-field reduced" name="password" value="<%=pwd.password%>" placeholder="Nuova password" disabled required />
-									<i id="copyIcon<%=i%>" class="bi bi-clipboard-fill copyBtn" onclick="copyPassword('<%=i%>')"></i>
-									<i id="eyeBtn<%=i%>" class="bi bi-eye-fill eyeBtn reduced" onclick="toggleSinglePwdVisibility('<%=i%>')"></i>
+		<div id="stored-pwd-menu">
+			<div class="header">
+				<h1 class="menu-title">Password salvate</h1>
+				<i id="sp-header-arrow" class="bi bi-chevron-up" onclick="showHidePasswords()"></i>
+			</div>
+			<div class="menu">
+				<%
+					let i = 0;
+					for (let pwd of passwords) {%>
+						<form class="storedPwd" id="single-pwd-form<%=i%>" action="/dashboard" method="POST">
+							<div>
+								<input id="actionSpec<%=i%>" type="hidden" name="action" />
+								<input type="hidden" name="service" value="<%=pwd.service%>" />
+								<h2>Servizio: <%=pwd.service%></h2>
+								<div class="single-account">
+									<h2>Account:</h2>
+									<input id="account-text<%=i%>" type="text" name="account" class="text-field reduced" value="<%=pwd.accountName%>" placeholder="Nuovo account" disabled required />
+								</div>
+								<div class="single-pwd">
+									<h2 id="single-pwd-input<%=i%>">Password:</h2> 
+									<div id="single-pwd-container<%=i%>" class="pwd-input-container reduced disabled">
+										<input type="password" id="pwd-text<%=i%>" class="pwd-field reduced" name="password" value="<%=pwd.password%>" placeholder="Nuova password" disabled required />
+										<i id="copyIcon<%=i%>" class="bi bi-clipboard-fill copyBtn" onclick="copyPassword('<%=i%>')"></i>
+										<i id="eyeBtn<%=i%>" class="bi bi-eye-fill eyeBtn reduced" onclick="toggleSinglePwdVisibility('<%=i%>')"></i>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div id="actions<%=i%>" class="actions">
-							<i class="bi bi-pencil sp-action" onclick="editPassword('<%=i%>')"></i>
-							<i class="bi bi-trash sp-action" onclick="deletePassword('<%=i%>')"></i>
-						</div>
-						<div id="submitButtons<%=i%>" class="actions removed">
-							<i id="confirmAction<%=i%>" class="bi bi-check2 sp-action"></i>
-							<i id="cancelAction<%=i%>" class="bi bi-x sp-action"></i>
-						</div>
-					</form>
-					<%i++;
-				}%>
+							<div id="actions<%=i%>" class="actions">
+								<i class="bi bi-pencil sp-action" onclick="editPassword('<%=i%>')"></i>
+								<i class="bi bi-trash sp-action" onclick="deletePassword('<%=i%>')"></i>
+							</div>
+							<div id="submitButtons<%=i%>" class="actions removed">
+								<i id="confirmAction<%=i%>" class="bi bi-check2 sp-action"></i>
+								<i id="cancelAction<%=i%>" class="bi bi-x sp-action"></i>
+							</div>
+						</form>
+						<%i++;
+					}%>
+			</div>
 		</div>
 	</div>
 </body>

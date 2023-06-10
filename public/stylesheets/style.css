@@ -8,13 +8,11 @@
 body {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 	background: linear-gradient(90deg, #0030FF 0%, #10AAFF 100%);
-	color: black;
-	text-align: center;
 	height: max-content;
-	padding: 50px;
+	padding: 20px 30px;
+	padding-bottom: 50px;
+	align-items: center;
 }
 
 h1 {
