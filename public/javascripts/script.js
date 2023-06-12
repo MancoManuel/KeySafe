@@ -27,7 +27,7 @@ function generate() {
     const logLabel = document.querySelector("#logLabel");
     logLabel.innerHTML = "";
     if (remaining == 0) {
-        logLabel.innerHTML = "Seleziona almeno un'opzione!";
+        logLabel.innerHTML = "Select at least one option!";
         logLabel.style = "color: red;";
         return;
     }
@@ -93,15 +93,15 @@ function toggleSinglePwdVisibility(index) {
 function load(passwordList, success) {
     var label = document.querySelector("#logLabel");
     if (success == 1) {
-        label.innerHTML = "Password creata!";
+        label.innerHTML = "Password created!";
         label.setAttribute("style", "color: green;");
         console.log("Password creata!");
     } else if (success == -1) {
-        label.innerHTML = "Password non creata!";
+        label.innerHTML = "Password not created!";
         label.setAttribute("style", "color: red;");
         console.log("Password non creata!");
     } else if (success == 2) {
-        label.innerHTML = "Password esistente!";
+        label.innerHTML = "Password already exists!";
         label.setAttribute("style", "color: red;");
     }
 
